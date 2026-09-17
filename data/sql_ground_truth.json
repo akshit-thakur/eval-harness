@@ -1,0 +1,10 @@
+[
+  {"id": 1, "sql": "SELECT COUNT(*) FROM tasks WHERE completed = FALSE;"},
+  {"id": 2, "sql": "SELECT COUNT(*) FROM tasks WHERE completed = FALSE AND priority = 'high';"},
+  {"id": 3, "sql": "SELECT COUNT(*) FROM medications;"},
+  {"id": 4, "sql": "SELECT COUNT(*) FROM medication_plans WHERE active = TRUE;"},
+  {"id": 5, "sql": "SELECT COUNT(*) FROM exercise_catalog;"},
+  {"id": 6, "sql": "SELECT COUNT(*) FROM recipes;"},
+  {"id": 7, "sql": "SELECT COUNT(*) FROM inventory WHERE quantity < min_quantity;"},
+  {"id": 8, "sql": "SELECT COUNT(*) FROM media_items WHERE status = 'completed';"}
+]

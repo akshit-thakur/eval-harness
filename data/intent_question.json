@@ -1,0 +1,12 @@
+[
+  {"id": 1, "query": "What tasks do I have due this week?"},
+  {"id": 2, "query": "Show my high-priority incomplete tasks."},
+  {"id": 3, "query": "What medications are in my morning plan?"},
+  {"id": 4, "query": "How many workouts did I log last month?"},
+  {"id": 5, "query": "Create a task called Renew passport."},
+  {"id": 6, "query": "Mark Buy milk as complete."},
+  {"id": 7, "query": "Add ibuprofen to my medication catalog."},
+  {"id": 8, "query": "Give me general advice for planning a productive week."},
+  {"id": 9, "query": "What can you do?"},
+  {"id": 10, "query": "Thanks, that was helpful."}
+]

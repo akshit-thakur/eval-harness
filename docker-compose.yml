@@ -1,0 +1,81 @@
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "127.0.0.1:8091:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: omniflow
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./db/init-users.sql:/docker-entrypoint-initdb.d/10-users.sql:ro
+    healthcheck:
+      # Readiness does not depend on the role name stored in an existing volume.
+      test: ["CMD-SHELL", "pg_isready -d omniflow"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
+  db-seed:
+    profiles: ["seed"]
+    image: postgres:16-alpine
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: eval_seed
+      PGPASSWORD: eval_seed
+      PGDATABASE: omniflow
+      SEED_FILE: /seed/seed_test_data.sql
+    volumes:
+      - ./db/reset_and_seed.sh:/reset_and_seed.sh:ro
+      - ./db/seed_test_data.sql:/seed/seed_test_data.sql:ro
+    entrypoint: ["/bin/sh", "/reset_and_seed.sh"]
+    restart: "no"
+
+  db-migrate:
+    profiles: ["migrate"]
+    image: postgres:16-alpine
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: ${PGADMIN_USER:-eval}
+      PGPASSWORD: ${PGADMIN_PASSWORD:-eval}
+      PGDATABASE: omniflow
+    volumes:
+      - ./db/migrate_existing_roles.sql:/migrate_existing_roles.sql:ro
+    command: ["psql", "-v", "ON_ERROR_STOP=1", "-f", "/migrate_existing_roles.sql"]
+    restart: "no"
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "127.0.0.1:8092:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+  harness:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://eval_app:eval_app@db:5432/omniflow
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_REASONER_MODEL: ${OLLAMA_REASONER_MODEL:-qwen3:1.7b}
+    volumes:
+      - ./data:/app/data
+      - ./scripts:/app/scripts
+      - ./logs:/app/logs
+    command: ["sleep", "infinity"]
+
+volumes:
+  postgres:
+  ollama:

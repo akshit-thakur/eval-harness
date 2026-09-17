@@ -1,0 +1,12 @@
+[
+  {"id": 1, "intent": "read", "actions": []},
+  {"id": 2, "intent": "read", "actions": []},
+  {"id": 3, "intent": "read", "actions": []},
+  {"id": 4, "intent": "read", "actions": []},
+  {"id": 5, "intent": "write", "actions": []},
+  {"id": 6, "intent": "write", "actions": []},
+  {"id": 7, "intent": "write", "actions": []},
+  {"id": 8, "intent": "chat", "actions": []},
+  {"id": 9, "intent": "chat", "actions": []},
+  {"id": 10, "intent": "chat", "actions": []}
+]

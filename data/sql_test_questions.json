@@ -1,0 +1,10 @@
+[
+  {"id": 1, "question": "How many tasks do I have?", "input": {"intent": "read", "tables": ["tasks"]}},
+  {"id": 2, "question": "How many incomplete high-priority tasks are there?", "input": {"intent": "read", "tables": ["tasks"]}},
+  {"id": 3, "question": "How many medications are in my catalog?", "input": {"intent": "read", "tables": ["medications"]}},
+  {"id": 4, "question": "How many active medication plans do I have?", "input": {"intent": "read", "tables": ["medication_plans"]}},
+  {"id": 5, "question": "How many exercises are in the catalog?", "input": {"intent": "read", "tables": ["exercise_catalog"]}},
+  {"id": 6, "question": "How many recipes do I have?", "input": {"intent": "read", "tables": ["recipes"]}},
+  {"id": 7, "question": "How many inventory items are below their minimum quantity?", "input": {"intent": "read", "tables": ["inventory"]}},
+  {"id": 8, "question": "How many media items have I completed?", "input": {"intent": "read", "tables": ["media_items"]}}
+]
